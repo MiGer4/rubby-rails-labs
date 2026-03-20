@@ -1,0 +1,38 @@
+---
+1:
+  :title: Чемпіонат України з футболу
+  :sports:
+  - Футбол
+  :teams:
+  - Динамо
+  - Шахтар
+  - Металіст
+  :location: Київ
+  :start_date: '2024-03-01'
+  :end_date: '2024-05-30'
+  :prize_fund: 100000.0
+  :status: upcoming
+2:
+  :title: Марафон Київ 2024
+  :sports:
+  - Легка атлетика
+  :teams:
+  - Збірна України
+  - Збірна Польщі
+  :location: Київ
+  :start_date: '2024-04-21'
+  :end_date: '2024-04-21'
+  :prize_fund: 60000.0
+  :status: completed
+3:
+  :title: Турнір з тенісу
+  :sports:
+  - Теніс
+  :teams:
+  - Світоліна
+  - Костюк
+  :location: Львів
+  :start_date: '2024-06-10'
+  :end_date: '2024-06-15'
+  :prize_fund: 75000.0
+  :status: ongoing
