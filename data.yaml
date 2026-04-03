@@ -1,0 +1,29 @@
+---
+1: !ruby/object:Competition
+  title: Чемпіонат України з футболу
+  location: !ruby/object:Location
+    city: Київ
+  start_date: 2024-03-01
+  end_date: 2024-05-30
+  prize_fund: 1000.0
+  status: upcoming
+  sports:
+  - !ruby/object:Sport
+    name: Футбол
+  teams:
+  - !ruby/object:Team
+    name: Шахтар
+  - !ruby/object:Team
+    name: Металіст
+  - !ruby/object:Team
+    name: Буковина
+2: !ruby/object:Competition
+  title: тест
+  location: !ruby/object:Location
+    city: київ
+  start_date: 1234-12-19
+  end_date: 1235-12-19
+  prize_fund: 1000.0
+  status: upcoming
+  sports: []
+  teams: []
