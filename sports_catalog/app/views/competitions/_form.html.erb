@@ -1,0 +1,80 @@
+<%= form_with(model: competition, class: "space-y-6 max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100") do |form| %>
+  
+  <% if competition.errors.any? %>
+    <div class="bg-red-50 border-l-4 border-red-500 p-5 mb-6 rounded-r-lg">
+      <h2 class="text-red-700 font-bold mb-2">Please fix these errors:</h2>
+      <ul class="list-disc list-inside text-red-600 text-sm">
+        <% competition.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="space-y-1">
+    <%= form.label :title, "Competition Title", class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3 border" %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <%= form.label :location_name, "Location", class: "block text-sm font-semibold text-gray-700" %>
+      
+      <%= form.text_field :location_name, 
+          list: "locations_list", 
+          placeholder: "Type or select city...", 
+          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 py-2 px-3 border" %>
+    
+      <datalist id="locations_list">
+        <% Competition.pluck(:location_name).uniq.compact.each do |city| %>
+          <option value="<%= city %>">
+        <% end %>
+      </datalist>
+    </div>
+
+    <div class="space-y-1">
+      <%= form.label :status, "Status", class: "block text-sm font-semibold text-gray-700" %>
+      <%= form.select :status, Competition.statuses.keys.map { |s| [s.capitalize, s] }, {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3 border bg-white" %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-1">
+      <%= form.label :start_date, "Start Date", class: "block text-sm font-semibold text-gray-700" %>
+      <%= form.date_field :start_date, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3 border" %>
+    </div>
+
+    <div class="space-y-1">
+      <%= form.label :prize_fund, "Prize Fund ($)", class: "block text-sm font-semibold text-gray-700" %>
+      <%= form.number_field :prize_fund, step: 0.01, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3 border" %>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 pt-6">
+    <%= form.label :sport_ids, "Sports Categories", class: "block text-base font-bold text-gray-900 mb-3" %>
+    <div class="flex flex-wrap gap-3">
+      <%= form.collection_check_boxes :sport_ids, Sport.all, :id, :name do |b| %>
+        <label class="inline-flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition">
+          <%= b.check_box class: "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-5 h-5" %>
+          <span class="ml-3 text-sm font-medium text-gray-700"><%= b.text %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 pt-6">
+    <%= form.label :team_ids, "Participating Teams", class: "block text-base font-bold text-gray-900 mb-3" %>
+    <div class="flex flex-wrap gap-3">
+      <%= form.collection_check_boxes :team_ids, Team.all, :id, :name do |b| %>
+        <label class="inline-flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
+          <%= b.check_box class: "rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-5 h-5" %>
+          <span class="ml-3 text-sm font-medium text-gray-700"><%= b.text %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 pt-6 flex justify-end">
+    <%= form.submit "Save Competition", class: "cursor-pointer inline-flex justify-center py-3 px-6 border border-transparent shadow-md text-base font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition" %>
+  </div>
+<% end %>

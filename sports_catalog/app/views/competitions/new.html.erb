@@ -1,0 +1,6 @@
+<div class="max-w-3xl mx-auto mb-6 flex items-center justify-between">
+  <h1 class="text-3xl font-extrabold text-gray-900">Add New Competition</h1>
+  <%= link_to "Cancel", competitions_path, class: "text-gray-500 hover:text-gray-800 font-medium" %>
+</div>
+
+<%= render "form", competition: @competition %>

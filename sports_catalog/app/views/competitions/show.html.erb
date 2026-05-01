@@ -1,0 +1,57 @@
+<div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto border border-gray-100">
+  <div class="bg-gradient-to-r from-indigo-600 to-blue-500 px-8 py-6">
+    <h1 class="text-3xl font-bold text-white"><%= @competition.title %></h1>
+  </div>
+
+  <div class="p-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+      <div class="space-y-4">
+        <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Location</span> 
+          <span class="text-lg font-semibold text-gray-900"><%= @competition.location_name %></span>
+        </p>
+        <%= status_badge(@competition.status) %>
+      </div>
+      <div class="space-y-4">
+        <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Start date</span> 
+          <span class="text-lg font-semibold text-gray-900"><%= @competition.start_date %></span>
+        </p>
+        <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Prize fund</span> 
+          <span class="text-lg font-bold text-green-600">$<%= @competition.prize_fund %></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-100 pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">Sports Categories</h3>
+        <% if @competition.sports.any? %>
+          <div class="flex flex-wrap gap-2">
+            <% @competition.sports.each do |sport| %>
+              <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm font-medium"><%= sport.name %></span>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 italic">No sports categories added yet.</p>
+        <% end %>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">Participating Teams</h3>
+        <% if @competition.teams.any? %>
+          <div class="flex flex-wrap gap-2">
+            <% @competition.teams.each do |team| %>
+              <span class="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-md text-sm font-medium"><%= team.name %></span>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 italic">No teams added yet.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 px-8 py-5 flex space-x-4 border-t border-gray-100">
+    <%= link_to "Edit this competition", edit_competition_path(@competition), class: "px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium shadow-sm" %>
+    <%= link_to "Back to list", competitions_path, class: "px-5 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium shadow-sm" %>
+  </div>
+</div>

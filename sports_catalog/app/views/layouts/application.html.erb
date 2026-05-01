@@ -23,7 +23,38 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-gray-100 text-gray-900 font-sans antialiased">
+    
+    <nav class="bg-indigo-600 text-white shadow-md mb-8">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        
+        <%= link_to competitions_path, class: "text-xl font-bold tracking-wider hover:text-indigo-200 transition duration-150 flex items-center gap-2" do %>
+          Sports Catalog
+        <% end %>
+        
+        <div class="space-x-6 flex items-center mt-1">
+          <%= link_to "Competitions", competitions_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'competitions' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+              
+          <%= link_to "Sports", sports_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'sports' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+              
+          <%= link_to "Teams", teams_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'teams' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+        </div>
+
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div class="max-w-6xl mx-auto mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-sm">
+        <p><%= notice %></p>
+      </div>
+    <% end %>
+
+    <main class="max-w-6xl mx-auto px-4 pb-12">
+      <%= yield %>
+    </main>
+
   </body>
 </html>
