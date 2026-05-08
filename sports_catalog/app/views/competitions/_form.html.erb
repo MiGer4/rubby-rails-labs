@@ -68,6 +68,18 @@
   </div>
 
   <div class="border-t border-gray-200 pt-6">
+    <%= form.label :tag_ids, "Tags", class: "block text-base font-bold text-gray-900 mb-3" %>
+    <div class="flex flex-wrap gap-3">
+      <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |b| %>
+        <label class="inline-flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-green-50 hover:border-green-200 transition">
+          <%= b.check_box class: "rounded border-gray-300 text-green-600 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 w-5 h-5" %>
+          <span class="ml-3 text-sm font-medium text-gray-700"><%= b.text %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-200 pt-6">
     <%= form.label :team_ids, "Participating Teams", class: "block text-base font-bold text-gray-900 mb-3" %>
     <div class="flex flex-wrap gap-3">
       <%= form.collection_check_boxes :team_ids, Team.all, :id, :name do |b| %>

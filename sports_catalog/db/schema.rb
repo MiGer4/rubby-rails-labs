@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_08_055635) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_08_074524) do
   create_table "competitions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -45,9 +45,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_08_055635) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer "competition_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id", "tag_id"], name: "index_taggings_on_competition_id_and_tag_id", unique: true
+    t.index ["competition_id"], name: "index_taggings_on_competition_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "teams", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "taggings", "competitions"
+  add_foreign_key "taggings", "tags"
 end
