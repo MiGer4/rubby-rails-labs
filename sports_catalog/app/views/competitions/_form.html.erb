@@ -50,6 +50,11 @@
     </div>
   </div>
 
+  <div class="space-y-1">
+    <%= form.label :description, "Description", class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 px-3 border" %>
+  </div>
+
   <div class="border-t border-gray-200 pt-6">
     <%= form.label :sport_ids, "Sports Categories", class: "block text-base font-bold text-gray-900 mb-3" %>
     <div class="flex flex-wrap gap-3">

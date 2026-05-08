@@ -9,7 +9,10 @@
         <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Location</span> 
           <span class="text-lg font-semibold text-gray-900"><%= @competition.location_name %></span>
         </p>
-        <%= status_badge(@competition.status) %>
+        <div>
+          <span class="block text-sm font-medium text-gray-400 uppercase tracking-wider mb-1">Status</span>
+          <%= status_badge(@competition.status) %>
+        </div>
       </div>
       <div class="space-y-4">
         <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Start date</span> 
@@ -48,6 +51,17 @@
         <% end %>
       </div>
     </div>
+
+    <% if @competition.description.present? %>
+      <div class="mt-8 pt-8 border-t border-gray-100">
+        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">About this competition</h3>
+        <div class="text-gray-700 leading-relaxed bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-inner">
+          <%# simple_format зберігає твої Enter-и з форми і робить абзаци %>
+          <%= simple_format(@competition.description) %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="bg-gray-50 px-8 py-5 flex space-x-4 border-t border-gray-100">

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :competitions do
     collection do
       get :upcoming
+      get :starting_soon
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

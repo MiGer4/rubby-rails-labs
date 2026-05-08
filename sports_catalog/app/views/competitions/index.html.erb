@@ -1,13 +1,20 @@
 <div class="flex justify-between items-center mb-8">
   <h1 class="text-3xl font-extrabold text-gray-900">Sports Competitions</h1>
-  <div class="space-x-3">
-    <% if action_name == 'upcoming' %>
-      <%= link_to "Show All", competitions_path, class: "px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 transition font-medium" %>
-    <% else %>
-      <%= link_to "Show Upcoming Only", upcoming_competitions_path, class: "px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 transition font-medium" %>
+  
+  <div class="flex items-center space-x-3">
+    <% if action_name == 'upcoming' || action_name == 'starting_soon' %>
+      <%= link_to "Show All", competitions_path, class: "px-4 py-2 bg-gray-100 border border-gray-300 text-gray-800 rounded-lg shadow-sm hover:bg-gray-200 transition font-medium" %>
+    <% end %>
+
+    <% if action_name != 'upcoming' %>
+      <%= link_to "Upcoming", upcoming_competitions_path, class: "px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 transition font-medium" %>
+    <% end %>
+
+    <% if action_name != 'starting_soon' %>
+      <%= link_to "Next 30 Days", starting_soon_competitions_path, class: "px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg shadow-sm hover:bg-indigo-50 transition font-medium" %>
     <% end %>
     
-    <%= link_to "+ Create New", new_competition_path, class: "px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition font-medium" %>
+    <%= link_to "+ Create New", new_competition_path, class: "ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition font-medium" %>
   </div>
 </div>
 
@@ -49,6 +56,12 @@
       <h3 class="text-2xl font-bold text-gray-900 mb-2">No upcoming competitions</h3>
       <p class="text-gray-500 mb-6">There are currently no sports events scheduled for the future.</p>
       <%= link_to "View all competitions", competitions_path, class: "text-indigo-600 hover:text-indigo-800 font-medium underline" %>
+      
+    <% elsif action_name == 'starting_soon' %>
+      <h3 class="text-2xl font-bold text-gray-900 mb-2">Nothing starting soon</h3>
+      <p class="text-gray-500 mb-6">There are no competitions scheduled for the next 30 days.</p>
+      <%= link_to "View all competitions", competitions_path, class: "text-indigo-600 hover:text-indigo-800 font-medium underline" %>
+      
     <% else %>
       <h3 class="text-2xl font-bold text-gray-900 mb-2">No competitions found</h3>
       <p class="text-gray-500 mb-6">You haven't added any sports competitions yet.</p>

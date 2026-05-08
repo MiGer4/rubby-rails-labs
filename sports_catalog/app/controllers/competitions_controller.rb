@@ -10,6 +10,11 @@ class CompetitionsController < ApplicationController
     render :index
   end
 
+  def starting_soon
+    @competitions = Competition.starting_soon
+    render :index
+  end
+
   def show; end
 
   def new
@@ -46,7 +51,7 @@ class CompetitionsController < ApplicationController
 
   private def competition_params
     params.require(:competition).permit(
-      :title, :start_date, :end_date, :prize_fund, :status, :location_name, sport_ids: [], team_ids: []
+      :title, :start_date, :end_date, :prize_fund, :status, :location_name, :description, sport_ids: [], team_ids: []
     )
   end
 end
