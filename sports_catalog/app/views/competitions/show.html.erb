@@ -12,6 +12,9 @@
         <div>
           <span class="block text-sm font-medium text-gray-400 uppercase tracking-wider mb-1">Status</span>
           <%= status_badge(@competition.status) %>
+          <p class="text-gray-600"><span class="block text-sm font-medium text-gray-400 uppercase tracking-wider">Author</span> 
+            <span class="text-lg font-semibold text-gray-900"><%= @competition.user.email %></span>
+          </p>
         </div>
       </div>
       <div class="space-y-4">

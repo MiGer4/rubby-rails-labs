@@ -27,3 +27,5 @@ module ApplicationHelper
     content_tag(:span, "##{normalized_name}", class: "#{base_classes} #{chosen_color}")
   end
 end
+module TagsHelper
+end
