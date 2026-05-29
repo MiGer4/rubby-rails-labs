@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Sports Catalog" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Sports Catalog">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900 font-sans antialiased">
+    
+    <nav class="bg-indigo-600 text-white shadow-md mb-8">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        
+        <%= link_to competitions_path, class: "text-xl font-bold tracking-wider hover:text-indigo-200 transition duration-150 flex items-center gap-2" do %>
+          Sports Catalog
+        <% end %>
+        
+        <div class="space-x-6 flex items-center mt-1">
+          <%= link_to "Competitions", competitions_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'competitions' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+              
+          <%= link_to "Sports", sports_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'sports' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+              
+          <%= link_to "Teams", teams_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'teams' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+          
+          <%= link_to "Tags", tags_path, 
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'tags' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+          <div class="ml-auto flex items-center space-x-4 border-l border-indigo-500 pl-6">
+          <% if user_signed_in? %>
+            <span class="text-sm font-medium text-indigo-100"><%= current_user.email %></span>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "cursor-pointer text-sm text-white font-bold hover:text-indigo-200 transition" %>
+          <% else %>
+            <%= link_to "Login", new_user_session_path, class: "text-sm text-white font-bold hover:text-indigo-200 transition" %>
+          <% end %>
+        </div>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div class="max-w-6xl mx-auto mb-6 bg-green-50 border border-green-200 text-green-700 p-4 rounded-lg shadow-sm flex items-center">
+        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <p class="font-medium"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="max-w-6xl mx-auto mb-6 bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg shadow-sm flex items-center">
+        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+        <p class="font-medium"><%= alert %></p>
+      </div>
+    <% end %>
+
+    <main class="max-w-6xl mx-auto px-4 pb-12">
+      <%= yield %>
+    </main>
+
+  </body>
+</html>

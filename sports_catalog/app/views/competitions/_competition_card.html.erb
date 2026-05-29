@@ -1,0 +1,38 @@
+<div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition">
+  <div class="p-6">
+    <h3 class="text-xl font-bold text-gray-900 mb-2 truncate"><%= competition.title %></h3>
+    
+    <% if competition.tags.any? %>
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        <% competition.tags.each do |tag| %>
+          <%= tag_badge(tag.name) %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="mb-4 h-6"></div>
+    <% end %>
+    
+    <div class="space-y-2 mb-6">
+      <p class="text-gray-600 flex justify-between">
+        <span class="font-medium text-gray-500">Location:</span> 
+        <span class="font-semibold text-gray-800"><%= competition.location_name || "TBD" %></span>
+      </p>
+      <p class="text-gray-600 flex justify-between items-center">
+        <span class="font-medium text-gray-500">Status:</span>
+        <%= status_badge(competition.status) %>
+      </p>
+    </div>
+    
+    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+      <%= link_to "Show details", competition, class: "text-indigo-600 hover:text-indigo-900 font-semibold text-sm" %>
+      
+      <div class="flex space-x-3 text-sm">
+        <%= link_to "Edit", edit_competition_path(competition), class: "text-gray-500 hover:text-gray-800" %>
+        
+        <% if competition.user == current_user %>
+          <%= button_to "Delete", competition, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "text-red-500 hover:text-red-700" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

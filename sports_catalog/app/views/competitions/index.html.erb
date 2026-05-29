@@ -1,0 +1,53 @@
+<div class="flex justify-between items-center mb-8">
+  <h1 class="text-3xl font-extrabold text-gray-900">Sports Competitions</h1>
+  
+  <div class="flex items-center space-x-3">
+    <%= link_to "All", competitions_path, 
+        class: "px-4 py-2 rounded-lg transition font-medium border #{action_name == 'index' ? 'bg-gray-200 text-gray-900 shadow-inner border-gray-400' : 'bg-white text-gray-700 shadow-sm border-gray-300 hover:bg-gray-50'}" %>
+
+    <%= link_to "Upcoming", upcoming_competitions_path, 
+        class: "px-4 py-2 rounded-lg transition font-medium border #{action_name == 'upcoming' ? 'bg-gray-200 text-gray-900 shadow-inner border-gray-400' : 'bg-white text-gray-700 shadow-sm border-gray-300 hover:bg-gray-50'}" %>
+
+    <%= link_to "Next 30 Days", starting_soon_competitions_path, 
+        class: "px-4 py-2 rounded-lg transition font-medium border #{action_name == 'starting_soon' ? 'bg-gray-200 text-gray-900 shadow-inner border-gray-400' : 'bg-white text-gray-700 shadow-sm border-gray-300 hover:bg-gray-50'}" %>
+    
+    <%= link_to "+ Create New", new_competition_path, class: "ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition font-medium" %>
+  </div>
+</div>
+
+<% if @my_competitions.empty? && @shared_competitions.empty? %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center mt-6">
+    <div class="text-6xl mb-4">🤷‍♂️</div> 
+    <h3 class="text-2xl font-bold text-gray-900 mb-2">No competitions found</h3>
+    <p class="text-gray-500 mb-6">There are no competitions in this list.</p>
+    <% if action_name != 'index' %>
+      <%= link_to "View all competitions", competitions_path, class: "text-indigo-600 hover:text-indigo-800 font-medium underline" %>
+    <% else %>
+      <%= link_to "+ Create your first competition", new_competition_path, class: "inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition font-medium" %>
+    <% end %>
+  </div>
+<% else %>
+
+  <% if @my_competitions.any? %>
+    <div class="mb-10">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">My Competitions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @my_competitions.each do |competition| %>
+          <%= render "competition_card", competition: competition %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @shared_competitions.any? %>
+    <div class="mb-10">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Shared with me</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @shared_competitions.each do |competition| %>
+          <%= render "competition_card", competition: competition %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>
