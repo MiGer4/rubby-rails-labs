@@ -52,3 +52,26 @@ jobs:
 
       - name: Run RSpec
         run: bundle exec rspec
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    defaults:
+      run:
+        working-directory: ./sports_catalog
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./sports_catalog
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sports_catalog:latest
+  
