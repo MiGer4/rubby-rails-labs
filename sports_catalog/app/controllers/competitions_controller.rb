@@ -4,16 +4,19 @@ class CompetitionsController < ApplicationController
   before_action :check_owner!, only: %i[ edit update destroy ]
 
   def index
-    @competitions = current_user.competitions
+    @my_competitions = current_user.competitions
+    @shared_competitions = current_user.shared_competitions
   end
 
   def upcoming
-    @competitions = current_user.competitions.upcoming_status
+    @my_competitions = current_user.competitions.upcoming_status
+    @shared_competitions = current_user.shared_competitions.upcoming_status
     render :index
   end
 
   def starting_soon
-    @competitions = current_user.competitions.starting_soon
+    @my_competitions = current_user.competitions.starting_soon
+    @shared_competitions = current_user.shared_competitions.starting_soon
     render :index
   end
 
@@ -47,9 +50,47 @@ class CompetitionsController < ApplicationController
     redirect_to competitions_url, notice: "Competition was successfully destroyed."
   end
 
-  private def check_owner!
+  def add_collaborator
+    @competition = Competition.find(params[:id])
     if @competition.user != current_user
-      redirect_to competitions_path, alert: "You don\'t have permission for this competition."
+      redirect_to @competition, alert: "Only the owner can add collaborators."
+      return
+    end
+
+    collaborator = User.find_by(email: params[:email])
+
+    if collaborator
+      if collaborator == current_user
+        redirect_to @competition, alert: "You are already the owner!"
+      elsif @competition.collaborators.include?(collaborator)
+        redirect_to @competition, alert: "User is already a collaborator."
+      else
+        @competition.collaborators << collaborator
+        redirect_to @competition, notice: "#{collaborator.email} was successfully added as a collaborator!"
+      end
+    else
+      redirect_to @competition, alert: "User with this email not found."
+    end
+  end
+
+  def remove_collaborator
+    @competition = Competition.find(params[:id])
+    if @competition.user != current_user
+      redirect_to @competition, alert: "Only the owner can remove collaborators"
+      return
+    end
+
+    collaborator = User.find(params[:collaborator_id])
+    if @competition.collaborators.delete(collaborator)
+      redirect_to @competition, notice: "#{collaborator.email} was successfully removed."
+    else
+      redirect_to @competition, alert: "Failed to remove collaborator."
+    end
+  end
+
+  private def check_owner!
+    unless @competition.user == current_user || @competition.collaborators.include?(current_user)
+      redirect_to competitions_path, alert: "You don't have permission for this competition."
     end
   end
 

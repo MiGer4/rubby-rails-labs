@@ -4,4 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :competitions, dependent: :destroy
+  has_many :collaborations, dependent: :destroy
+  has_many :shared_competitions, through: :collaborations, source: :competition
 end
