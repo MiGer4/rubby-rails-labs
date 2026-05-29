@@ -43,7 +43,7 @@
               class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'teams' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
           
           <%= link_to "Tags", tags_path, 
-              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'teams' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
+              class: "transition duration-150 pb-1 border-b-2 #{controller_name == 'tags' ? 'text-white font-bold border-white' : 'text-indigo-200 border-transparent hover:text-white hover:border-indigo-300'}" %>
           <div class="ml-auto flex items-center space-x-4 border-l border-indigo-500 pl-6">
           <% if user_signed_in? %>
             <span class="text-sm font-medium text-indigo-100"><%= current_user.email %></span>
